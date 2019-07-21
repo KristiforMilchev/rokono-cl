@@ -1,0 +1,14 @@
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/release/netcoreapp2.2/linux-x64/libhostpolicy.so
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/release/netcoreapp2.2/linux-x64/libhostfxr.so
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/release/netcoreapp2.2/linux-x64/rokono-cl
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/release/netcoreapp2.2/linux-x64/rokono-cl.deps.json
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/release/netcoreapp2.2/linux-x64/rokono-cl.runtimeconfig.json
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/release/netcoreapp2.2/linux-x64/rokono-cl.runtimeconfig.dev.json
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/release/netcoreapp2.2/linux-x64/rokono-cl.dll
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/release/netcoreapp2.2/linux-x64/rokono-cl.pdb
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/release/netcoreapp2.2/linux-x64/rokono-cl.csprojAssemblyReference.cache
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/release/netcoreapp2.2/linux-x64/rokono-cl.csproj.CoreCompileInputs.cache
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/release/netcoreapp2.2/linux-x64/rokono-cl.AssemblyInfoInputs.cache
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/release/netcoreapp2.2/linux-x64/rokono-cl.AssemblyInfo.cs
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/release/netcoreapp2.2/linux-x64/rokono-cl.dll
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/release/netcoreapp2.2/linux-x64/rokono-cl.pdb

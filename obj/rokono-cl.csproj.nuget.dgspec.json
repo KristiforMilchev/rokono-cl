@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/kristifor/Projects/CLCI/rokono-cl_0.1/rokono-cl.csproj": {}
+  },
+  "projects": {
+    "/home/kristifor/Projects/CLCI/rokono-cl_0.1/rokono-cl.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/kristifor/Projects/CLCI/rokono-cl_0.1/rokono-cl.csproj",
+        "projectName": "rokono-cl",
+        "projectPath": "/home/kristifor/Projects/CLCI/rokono-cl_0.1/rokono-cl.csproj",
+        "packagesPath": "/home/kristifor/.nuget/packages/",
+        "outputPath": "/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/kristifor/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.6, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.6.1, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      },
+      "runtimes": {
+        "linux-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
