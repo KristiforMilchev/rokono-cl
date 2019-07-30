@@ -1,0 +1,11 @@
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/Debug/netcoreapp2.2/rokono-cl.deps.json
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/Debug/netcoreapp2.2/rokono-cl.runtimeconfig.json
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/Debug/netcoreapp2.2/rokono-cl.runtimeconfig.dev.json
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/Debug/netcoreapp2.2/rokono-cl.dll
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/bin/Debug/netcoreapp2.2/rokono-cl.pdb
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/Debug/netcoreapp2.2/rokono-cl.csprojAssemblyReference.cache
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/Debug/netcoreapp2.2/rokono-cl.csproj.CoreCompileInputs.cache
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/Debug/netcoreapp2.2/rokono-cl.AssemblyInfoInputs.cache
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/Debug/netcoreapp2.2/rokono-cl.AssemblyInfo.cs
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/Debug/netcoreapp2.2/rokono-cl.dll
+/home/kristifor/Projects/CLCI/rokono-cl_0.1/obj/Debug/netcoreapp2.2/rokono-cl.pdb
