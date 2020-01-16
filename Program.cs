@@ -36,6 +36,12 @@ namespace rokono_cl
                     case "-a":
                         Ip = args[i+1];
                     break;
+                    case "-e":
+                        EditConnection();
+                    break;
+                    case "-r":
+                        RemoveConnection();
+                    break;
                     case "-s":
                         SaveDatabaseGen();
                         break;
@@ -61,6 +67,45 @@ namespace rokono_cl
                 System.Console.WriteLine("Use rokono-cl --Help  *for more information*");
         }
 
+        private static void RemoveConnection()
+        {
+            var data = InputHandler.GetSavedConnections();
+            var getCons = data == null ? new List<SavedConnection>() : data;
+            if(getCons.Count == 0)
+            {
+                System.Console.WriteLine("Collection is empty, you can't delete an non existing row!");
+            }
+            
+            getCons.Remove(SavedConnection);
+            var rebase = new List<SavedConnection>();
+            getCons.ForEach(x=>{
+                var current = x;
+                current.ConnectionId = current.ConnectionId -1;
+                rebase.Add(current);
+            });
+            InputHandler.SavedConnections(getCons);
+
+        }
+
+        private static void EditConnection()
+        {
+            System.Console.WriteLine("In");
+            var data = InputHandler.GetSavedConnections();
+            var getCons = data == null ? new List<SavedConnection>() : data;
+            
+            var conStirng =$"Server={Ip};Database={Database};User ID={User};Password='{Password}';";
+           
+            SavedConnection.Username = User;
+            SavedConnection.Password = Password;
+            SavedConnection.FilePath = FilePath;
+            SavedConnection.Database = Database;
+            SavedConnection.Host = Ip;
+            SavedConnection.ConnectionString = conStirng;
+         
+            getCons.Add(SavedConnection);
+            InputHandler.SavedConnections(getCons);
+        }
+
         private static void ShowHelpMenu()
         {
             System.Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
@@ -81,12 +126,16 @@ namespace rokono_cl
             System.Console.WriteLine("-file: requires a path that will point to a *.wsd file (optional) ");
             System.Console.WriteLine("-a: the endpoint of the sql server, it could be a domain or an ip and if it doesn't run on the default port please specify it with ip:port");
             System.Console.WriteLine("-L: returns a list of saved database diagrams for quick access.");
+            System.Console.WriteLine("-r: removes a record from the saved connections");
+            System.Console.WriteLine("-e: edits a saved connection");
             System.Console.WriteLine("-Connection: requires specified Id after the command in order to select a connection from the quick access list. Saved quick connectison can be viewd with -L for identified use the ID column result");
             System.Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
             System.Console.WriteLine("                              Please include the commnds after the supplied options                         ");
             System.Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
 
             System.Console.WriteLine("-s: specify this command at the end of the new connection in order to save it for quick access in the future. Example rokono-cl -u User -password \"Password\" -a ip -d DatabaseName -file PathToWsdFile -s ");
+            System.Console.WriteLine("-e: specify this command at the end of the new connection followed by -Connection ID in order to edit a record in the saved connections list.");
+            System.Console.WriteLine("-r: specitfy this command after -Connection ID in order to remove a connection from the saved connections list.");
             System.Console.WriteLine("-GF: Uses a saved connection to generate a plantUML diagram for a specific database that is on the same server as the quick access connection with a custom filepath. Usage rokono-cl -Connection ID -d DatabaseName -file customfilePath -GF");
             System.Console.WriteLine("-GS: Uses a saved connection to generate a plantUML diagram for the default set database using the default saved filepath. Usage rokono-cl -Connection ID -GS");
             System.Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
@@ -118,7 +167,7 @@ namespace rokono_cl
             System.Console.WriteLine("In");
             var data = InputHandler.GetSavedConnections();
             var getCons = data == null ? new List<SavedConnection>() : data;
-            var count =  getCons.Count == 0 ?  getCons.Count + 1 : 1;
+            var count =  getCons.Count == 0 ?  getCons.Count + 1 : getCons.Count + 1;
             var conStirng =$"Server={Ip};Database={Database};User ID={User};Password='{Password}';";
             var savedConnection = new SavedConnection{
                 Username = User,
