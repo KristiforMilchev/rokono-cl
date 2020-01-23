@@ -30,6 +30,7 @@ Usage example rokono-cl [options] [commands]
 -r: specitfy this command after -Connection ID in order to remove a connection from the saved connections list.
 -GF: Uses a saved connection to generate a plantUML diagram for a specific database that is on the same server as the quick access connection with a custom filepath. Usage rokono-cl -Connection ID -d DatabaseName -file customfilePath -GF
 -GS: Uses a saved connection to generate a plantUML diagram for the default set database using the default saved filepath. Usage rokono-cl -Connection ID -GS
+-Context: runs dbscaffold on a database to generate database first update or initalization on the project directory ensuring consitancy between the generated UML diagram and database model inside the project. Important, must be -CP must be pointed to the root project folder in order to generate database context!!!"
 
 -----------------------------------------------------------------------------------------------------------
                                                  Usage Example 
@@ -79,6 +80,7 @@ once you are ready to test just open the file in visual studio code and press al
 
 //dotnet publish -c Release -r linux-64
 dotnet publish -c Release
+
 
 
 
