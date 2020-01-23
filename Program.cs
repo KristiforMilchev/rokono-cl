@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using rokono_cl.CLHandlers;
 using rokono_cl.Data_Hanlders;
 using RokonoDbManager.Models;
@@ -14,9 +15,46 @@ namespace rokono_cl
         private static string User {get;set;}
         private static string Database { get; set; }
         private static string FilePath {get; set;}
+        public static string DbContextPath {get; set;}
         private static string Ip {get; set;}
+        private static bool Os {get; set;}
+        public static bool IsLinux
+        {
+            get
+            {
+                int p = (int) Environment.OSVersion.Platform;
+                return (p == 4) || (p == 6) || (p == 128);
+            }
+        }
         static void Main(string[] args)
         {
+        //    args = new string[13];
+        //    args[0] = "-u";
+        //    args[1] = "StoriesUntold";
+        //    args[2] = "-d";
+        //    args[3] = "WW";
+        //    args[4] = "-a";
+        //    args[5] = "192.168.1.3";
+        //    args[6] = "-file";
+        //    args[7] = "/home/kristifor/Projects/Games/StoriesUnraveled/Server/Slaves/StoriesUnraveledServer/schema.wsd";
+        //    args[8] = "-CP";
+        //    args[9] = "home/kristifor/Projects/Games/StoriesUnraveled/Server/Slaves/StoriesUnraveledServer/StoriesUntoldDataLaye/DbModels";
+        //    args[10] = "-password";
+        //    args[11] = "Hj153426";
+        //    args[12] = "-s";
+
+
+     //       Select query 
+            // args = new string[1];
+            // args[0] = "-L";
+
+            args = new string[5];
+            args[0] = "-Connection";
+            args[1] = "4";
+            args[2] = "-GS";
+            args[4] = "-Context";
+
+
             for(int i = 0; i < args.Length; i++)
             {
                 switch(args[i])
@@ -48,6 +86,13 @@ namespace rokono_cl
                     case "-L":
                         GetConnections();
                         break;
+                    
+                    case "-CP":
+                        DbContextPath = args[i+1];
+                    break;
+                    case "-Context":
+                        GenerateDbContext();
+                    break;
                     case "-Connection":
                         SavedConnection = GetConnectionById(args[i+1]);
                         System.Console.WriteLine(SavedConnection.ConnectionString);
@@ -61,12 +106,67 @@ namespace rokono_cl
                     case "--Help":
                         ShowHelpMenu();
                         break;
+
+                    
                 }  
             }
             if(args.Length == 0)
                 System.Console.WriteLine("Use rokono-cl --Help  *for more information*");
         }
 
+        private static void GenerateDbContext()
+        {
+
+            
+            var cmd = string.Empty;
+            if(Os)
+            {
+                cmd = $"dotnet ef dbcontext scaffold \"Server={Ip};Database={Database};User ID={User};Password='{Password}';\"  Microsoft.EntityFrameworkCore.SqlServer -o {DbContextPath} -f";
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                startInfo.FileName = "cmd.exe";
+                startInfo.Arguments = cmd;
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+            else
+            {
+                
+                if(SavedConnection != null)
+                {
+                    DbContextPath = SavedConnection.DbContextPath;
+
+                    cmd = $"cd {DbContextPath} & dotnet ef dbcontext scaffold \"{SavedConnection.ConnectionString}\"  Microsoft.EntityFrameworkCore.SqlServer -o Models -f";
+                }
+                else
+                    cmd = $"cd {DbContextPath} & dotnet ef dbcontext scaffold \"Server={Ip};Database={Database};User ID={User};Password='{Password}';\"  Microsoft.EntityFrameworkCore.SqlServer -f";
+
+                var bashResult  = Bash(cmd);
+                
+            }
+        }
+        public static string Bash(string cmd)
+        {
+            var escapedArgs = cmd.Replace("\"", "\\\"");
+            
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "/bin/bash",
+                    Arguments = $"-c \"{escapedArgs}\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                }
+            };
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            return result;
+        }
+    
         private static void RemoveConnection()
         {
             var data = InputHandler.GetSavedConnections();
@@ -127,6 +227,7 @@ namespace rokono_cl
             System.Console.WriteLine("-a: the endpoint of the sql server, it could be a domain or an ip and if it doesn't run on the default port please specify it with ip:port");
             System.Console.WriteLine("-L: returns a list of saved database diagrams for quick access.");
             System.Console.WriteLine("-r: removes a record from the saved connections");
+            System.Console.WriteLine("-CP: Specifies a directory to save the generated edmx context. Used for generating database first approach with entity framework core, eventually it executes DbScaffold on the database. the command can be specified at the end to ensure that the project context is the same as the generated UML diagram.");
             System.Console.WriteLine("-e: edits a saved connection");
             System.Console.WriteLine("-Connection: requires specified Id after the command in order to select a connection from the quick access list. Saved quick connectison can be viewd with -L for identified use the ID column result");
             System.Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
@@ -138,6 +239,7 @@ namespace rokono_cl
             System.Console.WriteLine("-r: specitfy this command after -Connection ID in order to remove a connection from the saved connections list.");
             System.Console.WriteLine("-GF: Uses a saved connection to generate a plantUML diagram for a specific database that is on the same server as the quick access connection with a custom filepath. Usage rokono-cl -Connection ID -d DatabaseName -file customfilePath -GF");
             System.Console.WriteLine("-GS: Uses a saved connection to generate a plantUML diagram for the default set database using the default saved filepath. Usage rokono-cl -Connection ID -GS");
+            System.Console.WriteLine("-Context: runs dbscaffold on a database to generate database first update or initalization on the project directory ensuring consitancy between the generated UML diagram and database model inside the project. Important, must be -CP must be pointed to the root project folder in order to generate database context!!!");
             System.Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
 
         }
@@ -158,8 +260,8 @@ namespace rokono_cl
         {
             var getCons = InputHandler.GetSavedConnections();
             Console.WriteLine(getCons.ToStringTable(
-                new[] {"ID", "Database Name", "Host", "File Path"},
-                a => a.ConnectionId, a => a.Database, a => a.Host, a=> a.FilePath));
+                new[] {"ID", "Database Name", "Host", "File Path", "Context Path"},
+                a => a.ConnectionId, a => a.Database, a => a.Host, a=> a.FilePath, a=> a.DbContextPath));
         }
 
         private static void SaveDatabaseGen()
@@ -176,11 +278,12 @@ namespace rokono_cl
                 Database = Database,
                 Host = Ip,
                 ConnectionString = conStirng,
-                ConnectionId = count
+                ConnectionId = count,
+                DbContextPath = DbContextPath
             };
+
             getCons.Add(savedConnection);
            InputHandler.SavedConnections(getCons);
         }   
     }
 }
-
