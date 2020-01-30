@@ -7,7 +7,8 @@ Name: Rokono-Cl
 Description: Quick and easy tool to generate UML diagrams from relational databases released as an extension of plantUML extension for visual studio code
 The tool comes as is and its not supported or developed by the team behind plantUML, but it is fully integrated to work with the drawing libaray to generate database UML diagrams.
 Author: Kristifor Milchev
-Contact for support: Kristifor@rttinternational.com
+Contact for support: kristifor@kristifordev.com
+
 
 -----------------------------------------------------------------------------------------------------------
 
