@@ -564,19 +564,19 @@
     ]
   },
   "packageFolders": {
-    "/home/kristifor/.nuget/packages/": {}
+    "/home/dwarfdevelopment/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/kristifor/Projects/GitClones/rokono-cl/rokono-cl.csproj",
+      "projectUniqueName": "/home/dwarfdevelopment/Projects/GitClones/rokono-cl/rokono-cl.csproj",
       "projectName": "rokono-cl",
-      "projectPath": "/home/kristifor/Projects/GitClones/rokono-cl/rokono-cl.csproj",
-      "packagesPath": "/home/kristifor/.nuget/packages/",
-      "outputPath": "/home/kristifor/Projects/GitClones/rokono-cl/obj/",
+      "projectPath": "/home/dwarfdevelopment/Projects/GitClones/rokono-cl/rokono-cl.csproj",
+      "packagesPath": "/home/dwarfdevelopment/.nuget/packages/",
+      "outputPath": "/home/dwarfdevelopment/Projects/GitClones/rokono-cl/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/kristifor/.nuget/NuGet/NuGet.Config"
+        "/home/dwarfdevelopment/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using rokono_cl.CLHandlers;
 using rokono_cl.Data_Hanlders;
 using RokonoDbManager.Models;
@@ -28,31 +29,7 @@ namespace rokono_cl
         }
         static void Main(string[] args)
         {
-        //    args = new string[13];
-        //    args[0] = "-u";
-        //    args[1] = "StoriesUntold";
-        //    args[2] = "-d";
-        //    args[3] = "WW";
-        //    args[4] = "-a";
-        //    args[5] = "192.168.1.3";
-        //    args[6] = "-file";
-        //    args[7] = "/home/kristifor/Projects/Games/StoriesUnraveled/Server/Slaves/StoriesUnraveledServer/schema.wsd";
-        //    args[8] = "-CP";
-        //    args[9] = "home/kristifor/Projects/Games/StoriesUnraveled/Server/Slaves/StoriesUnraveledServer/StoriesUntoldDataLaye/DbModels";
-        //    args[10] = "-password";
-        //    args[11] = "Hj153426";
-        //    args[12] = "-s";
 
-
-     //       Select query 
-            // args = new string[1];
-            // args[0] = "-L";
-
-            args = new string[5];
-            args[0] = "-Connection";
-            args[1] = "4";
-            args[2] = "-GS";
-            args[4] = "-Context";
 
 
             for(int i = 0; i < args.Length; i++)
@@ -175,12 +152,12 @@ namespace rokono_cl
             {
                 System.Console.WriteLine("Collection is empty, you can't delete an non existing row!");
             }
-            
+            SavedConnection = getCons.FirstOrDefault( x=> x.ConnectionId  == SavedConnection.ConnectionId);
             getCons.Remove(SavedConnection);
             var rebase = new List<SavedConnection>();
             getCons.ForEach(x=>{
                 var current = x;
-                current.ConnectionId = current.ConnectionId -1;
+                current.ConnectionId = current.ConnectionId > 1 ? current.ConnectionId -1 : 1;
                 rebase.Add(current);
             });
             InputHandler.SavedConnections(getCons);
@@ -194,15 +171,18 @@ namespace rokono_cl
             var getCons = data == null ? new List<SavedConnection>() : data;
             
             var conStirng =$"Server={Ip};Database={Database};User ID={User};Password='{Password}';";
-           
-            SavedConnection.Username = User;
-            SavedConnection.Password = Password;
-            SavedConnection.FilePath = FilePath;
-            SavedConnection.Database = Database;
-            SavedConnection.Host = Ip;
-            SavedConnection.ConnectionString = conStirng;
-         
-            getCons.Add(SavedConnection);
+            var updatingConnection= new SavedConnection();
+            updatingConnection.ConnectionId = SavedConnection.ConnectionId;
+            updatingConnection.Username = string.IsNullOrEmpty(User) ? "" : User;
+            updatingConnection.Password = string.IsNullOrEmpty(Password) ? "" : Password;
+            updatingConnection.FilePath = string.IsNullOrEmpty(FilePath) ? "" : FilePath;
+            updatingConnection.Database = string.IsNullOrEmpty(Database) ? "" : Database;
+            updatingConnection.Host = string.IsNullOrEmpty(Ip) ? "" : Ip;
+            updatingConnection.ConnectionString = string.IsNullOrEmpty(conStirng) ? "" : conStirng;
+            updatingConnection.DbContextPath = string.IsNullOrEmpty(DbContextPath) ? "" : DbContextPath;
+            SavedConnection = getCons.FirstOrDefault( x=> x.ConnectionId  == SavedConnection.ConnectionId);
+            getCons.Remove(SavedConnection);
+            getCons.Add(updatingConnection);
             InputHandler.SavedConnections(getCons);
         }
 
@@ -272,14 +252,14 @@ namespace rokono_cl
             var count =  getCons.Count == 0 ?  getCons.Count + 1 : getCons.Count + 1;
             var conStirng =$"Server={Ip};Database={Database};User ID={User};Password='{Password}';";
             var savedConnection = new SavedConnection{
-                Username = User,
-                Password = Password,
-                FilePath = FilePath,
-                Database = Database,
-                Host = Ip,
-                ConnectionString = conStirng,
+                Username = string.IsNullOrEmpty(User) ? "" : User,
+                Password = string.IsNullOrEmpty(Password) ? "" : Password,
+                FilePath = string.IsNullOrEmpty(FilePath) ? "" : FilePath,
+                Database = string.IsNullOrEmpty(Database) ? "" : Database,
+                Host = string.IsNullOrEmpty(Ip) ? "" : Ip,
+                ConnectionString = string.IsNullOrEmpty(conStirng) ? "" : conStirng,
                 ConnectionId = count,
-                DbContextPath = DbContextPath
+                DbContextPath = string.IsNullOrEmpty(DbContextPath) ? "" : DbContextPath
             };
 
             getCons.Add(savedConnection);
