@@ -1,0 +1,1 @@
+[{"ConnectionString":"Server=84.54.185.144;Database=RokonoControl;User ID=Kristifor;Password=';;y=yDXkd1';","Host":"84.54.185.144","FilePath":"/home/dwarfdevelopment/Projects/GitClones/RC/RokonoControl/Platform/DatabaseHandlers/Diagram.wsd","Username":"Kristifor","Password":";;y=yDXkd1","Database":"RokonoControl","ConnectionId":1,"DbContextPath":""}]
