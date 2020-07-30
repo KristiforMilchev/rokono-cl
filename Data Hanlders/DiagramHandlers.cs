@@ -52,18 +52,18 @@ namespace rokono_cl.Data_Hanlders
             { 
                 umlData.ForEach(x=>{
                     x.Tables.ForEach(y=>{
-                        StreamWriter.WriteLine($"class {y.Shape.Name}");
+                        StreamWriter.WriteLine($"class '{y.Shape.Name}'");
                         StreamWriter.WriteLine("{");
                         y.Shape.Attribute.ForEach(z=>{
 
 
-                            StreamWriter.WriteLine($"    {z.Name} {z.Column}");
+                            StreamWriter.WriteLine($"    '{z.Name} {z.Column}'");
                         });
 
                         StreamWriter.WriteLine("}");
                     });
                     x.Connections.ForEach(y => {
-                        StreamWriter.WriteLine($"{y.TableName} \"1\" *-- \"many\" {y.ConnectionName}");   
+                        StreamWriter.WriteLine($"'{y.TableName}' \"1\" *-- \"many\" '{y.ConnectionName}'");   
                     });
                 });
                
@@ -75,18 +75,18 @@ namespace rokono_cl.Data_Hanlders
             var res = new StringBuilder();
             umlData.ForEach(x=>{
                 x.Tables.ForEach(y=>{
-                    res.AppendLine($"class {y.Shape.Name}");
+                    res.AppendLine($"class '{y.Shape.Name}'");
                     res.AppendLine("{");
 
                     y.Shape.Attribute.ForEach(z=>{
 
-                        res.AppendLine($"    {z.Name} {z.Column}");
+                        res.AppendLine($"    '{z.Name} {z.Column}'");
 
                     });
                     res.AppendLine("}");
                 });
                 x.Connections.ForEach(y => {
-                    res.AppendLine($"{y.TableName} \"1\" *-- \"many\" {y.ConnectionName}");   
+                    res.AppendLine($"'{y.TableName}' \"1\" *-- \"many\" '{y.ConnectionName}'");   
                 });
             });
             return res.ToString();
